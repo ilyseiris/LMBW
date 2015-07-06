@@ -39,6 +39,23 @@ var geoJson = {
 };
 var myLayer = L.mapbox.featureLayer().addTo(map);
 
+// Add the iframe in a custom popup using the custom feature properties
+myLayer.on('layeradd', function(e) {
+    var marker = e.layer,
+        feature = marker.feature;
+
+    // Create custom popup content
+    var popupContent =  '<a target="_blank" class="popup" href="' + 
+        feature.properties.url + '">' +
+        feature.properties.sounds + 
+        '<h2>' + feature.properties.title + '</h2>' + '</a>';
+
+    // http://leafletjs.com/reference.html#popup
+    marker.bindPopup(popupContent,{
+        closeButton: false,
+        minWidth: 320
+    });
+});
 
 // Add features to the map
 myLayer.setGeoJSON(geoJson);
