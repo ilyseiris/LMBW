@@ -1,18 +1,68 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
+<!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Lines Made by Walking</title>
+<meta charset=utf-8 />
+<title>Embed Soundcloud clip</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
+<style>
+  body { margin:0; padding:0; }
+  #map { position:absolute; top:0; bottom:0; width:100%; }
+</style>
 </head>
 <body>
-<iframe width="100%" height="450px" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/58704248&amp;color=ff5500&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false"></iframe>
-<text>
-<h2><font face="arial" color="orange"><b>UNDER CONSTRUCTION</b></font></h2>
-<p></p><font face="arial">Above are two sound pieces made from editing and stringing together nearly 500 field recordings, collected as part of <a href="http://linesmadebywalking.com">Lines Made by Walking</a>, a project by <a href="http://ilyseirismagy.com">Ilyse Iris Magy</a> with many others. 
-When the next phase of the project is complete, clicking each of the markers below will play the individual observation recorded there. 
-A work in progress!</font></p>
-</text>
-<iframe width="100%" height="700px" frameBorder="no" src="https://a.tiles.mapbox.com/v4/ilyseiris.l4d0fmc3/attribution,zoompan,zoomwheel,geocoder,share.html?access_token=pk.eyJ1IjoiaWx5c2VpcmlzIiwiYSI6Im54T191WlEifQ.bhfFaaf7ABgWqhHYZmx8xw"></iframe>
+<div id='map'></div>
+
+<script>
+L.mapbox.accessToken = 'pk.eyJ1IjoiaWx5c2VpcmlzIiwiYSI6Im54T191WlEifQ.bhfFaaf7ABgWqhHYZmx8xw';
+
+var map = L.mapbox.map('map', 'mapbox.streets');
+
+// The GeoJSON representing a point feature with a property of 'sounds'
+var geoJson = {
+    features: [{
+        type: 'Feature',
+        properties: {
+            title: 'Lines Made by Walking Test',
+            'marker-color': '#fff',
+            'marker-size': 'large',
+            'marker-symbol': 'circle',
+            url: 'http://linesmadebywalking.com',
+            sounds: '<iframe width="100%" height="300" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/213531961&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>'
+        },
+        geometry: {
+            type: 'Point',
+            coordinates: [-122.41692,37.766813] 	
+        }
+    }]
+};
+
+var myLayer = L.mapbox.featureLayer().addTo(map);
+
+// Add the iframe in a custom popup using the custom feature properties
+myLayer.on('layeradd', function(e) {
+    var marker = e.layer,
+        feature = marker.feature;
+
+    // Create custom popup content
+    var popupContent =  '<a target="_blank" class="popup" href="' + 
+        feature.properties.url + '">' +
+        feature.properties.sounds + 
+        '<h2>' + feature.properties.title + '</h2>' + '</a>';
+
+    // http://leafletjs.com/reference.html#popup
+    marker.bindPopup(popupContent,{
+        closeButton: false,
+        minWidth: 320
+    });
+});
+
+// Add features to the map
+myLayer.setGeoJSON(geoJson);
+
+map.setView([37.766813,-122.41692], 11);
+
+</script>
 </body>
 </html>
