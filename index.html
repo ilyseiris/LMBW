@@ -40,6 +40,26 @@ var geoJson = {
 
 var myLayer = L.mapbox.featureLayer().addTo(map);
 
+// The GeoJSON representing a point feature with a property of 'sounds'
+var geoJson = {
+    features: [{
+        type: 'Feature',
+        properties: {
+            title: 'Lines Made by Walking Test',
+            'marker-color': '#fff',
+            'marker-size': 'large',
+            'marker-symbol': 'circle',
+            url: 'http://linesmadebywalking.com',
+            sounds: '<iframe width="100%" height="300" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/213531960&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>'
+        },
+        geometry: {
+            type: 'Point',
+            coordinates: [-122.445513,37.77141] 	
+        }
+    }]
+};
+var myLayer = L.mapbox.featureLayer().addTo(map);
+
 // Add the iframe in a custom popup using the custom feature properties
 myLayer.on('layeradd', function(e) {
     var marker = e.layer,
