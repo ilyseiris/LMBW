@@ -34,7 +34,7 @@ var geoJson = {
         geometry: {
             type: 'Point',
             coordinates: [-122.41692,37.766813] 	
-        }
+        },
              type: 'Feature',
         properties: {
             title: 'Lines Made by Walking Test',
@@ -73,15 +73,13 @@ myLayer.on('layeradd', function(e) {
 
 // Add features to the map
 myLayer.setGeoJSON(geoJson);
-
-map.setView([37.766813,-122.41692], 12);
-map.setView([37.77141,-122.445513], 12);
+map.setView([37.766813,-122.41692], 8);
 </script>
 
 <script>
 L.mapbox.accessToken = 'pk.eyJ1IjoiaWx5c2VpcmlzIiwiYSI6Im54T191WlEifQ.bhfFaaf7ABgWqhHYZmx8xw';
 var map = L.mapbox.map('map', 'mapbox.streets')
-    .setView([37.766813,-122.41692], 12);
+    .setView([37.766813,-122.41692], 8);
 
 // omnivore will AJAX-request this file behind the scenes and parse it:
 // note that there are considerations:
