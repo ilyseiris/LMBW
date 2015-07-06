@@ -9,7 +9,6 @@
 <style>
   body { margin:0; padding:0; }
   #map { position:absolute; top:0; bottom:0; width:100%; }
-  class {"dark"}
 </style>
 </head>
 <body>
@@ -62,8 +61,36 @@ myLayer.on('layeradd', function(e) {
 // Add features to the map
 myLayer.setGeoJSON(geoJson);
 
-map.setView([37.766813,-122.41692], 11);
+map.setView([37.766813,-122.41692], 10);
+</script>
 
+<script>
+L.mapbox.accessToken = 'pk.eyJ1IjoiaWx5c2VpcmlzIiwiYSI6Im54T191WlEifQ.bhfFaaf7ABgWqhHYZmx8xw';
+var map = L.mapbox.map('map', 'mapbox.streets')
+    .setView([38, -95.0], 4);
+
+// omnivore will AJAX-request this file behind the scenes and parse it:
+// note that there are considerations:
+// - The CSV file must contain latitude and longitude values, in column
+//   named roughly latitude and longitude
+// - The file must either be on the same domain as the page that requests it,
+//   or both the server it is requested from and the user's browser must
+//   support CORS.
+
+// The omnivore functions take three arguments:
+//
+// - a URL of the file to fetch
+// - options to the parser
+// - a custom layer
+//
+// And they return the custom layer, which is by default an L.geoJson layer.
+//
+// The second two arguments are each optional. In this case we're supplying
+// no arguments to the parser (null), but supplying a custom layer:
+// an instance of L.mapbox.featureLayer
+// This means that rows with simplestyle properties will be styled as they
+// would be in GeoJSON and elsewhere.
+omnivore.csv('/mapbox.js/assets/data/simplestyle.csv', null, L.mapbox.featureLayer()).addTo(map);
 </script>
 </body>
 </html>
