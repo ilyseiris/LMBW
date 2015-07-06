@@ -67,7 +67,7 @@ map.setView([37.766813,-122.41692], 10);
 <script>
 L.mapbox.accessToken = 'pk.eyJ1IjoiaWx5c2VpcmlzIiwiYSI6Im54T191WlEifQ.bhfFaaf7ABgWqhHYZmx8xw';
 var map = L.mapbox.map('map', 'mapbox.streets')
-    .setView([38, -95.0], 4);
+    .setView([37.766813,-122.41692], 10);
 
 // omnivore will AJAX-request this file behind the scenes and parse it:
 // note that there are considerations:
@@ -90,7 +90,7 @@ var map = L.mapbox.map('map', 'mapbox.streets')
 // an instance of L.mapbox.featureLayer
 // This means that rows with simplestyle properties will be styled as they
 // would be in GeoJSON and elsewhere.
-omnivore.csv('/mapbox.js/assets/data/simplestyle.csv', null, L.mapbox.featureLayer()).addTo(map);
+omnivore.csv('https://docs.google.com/spreadsheets/d/1OrLCEf3T9k2yU6fB7aG1yyNlmeH2XuGYPuTE1vcJ3Bc', null, L.mapbox.featureLayer()).addTo(map);
 </script>
 </body>
 </html>
