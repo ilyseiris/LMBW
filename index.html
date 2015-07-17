@@ -37,6 +37,7 @@ onEachFeature: makeMarkers,
 });
 
 
+
 // The GeoJSON representing a point feature with a property of 'sounds'
 var geoJson = {
     features: [{
@@ -55,7 +56,18 @@ var geoJson = {
         }
     }]
 };
-var myLayer = L.mapbox.featureLayer().addTo(map);
+
+//markers
+function makeMarkers(feature, layer) {
+var thisFeature = feature.properties;
+console.log(layer);
+console.log(feature.properties.hTitle);
+layer.on("click", function(e){
+map.panTo(new L.LatLng(feature.geometry.coordinates[1],feature.geometry.coordinates[0]), {animate: true, duration: 1.0});
+});
+
+};
+//var myLayer = L.mapbox.featureLayer().addTo(map);
 
 // Add the iframe in a custom popup using the custom feature properties
 myLayer.on('layeradd', function(e) {
