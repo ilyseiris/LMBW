@@ -15,9 +15,18 @@
 <div id='map'></div>
 
 <script>
-L.mapbox.accessToken = 'pk.eyJ1IjoiaWx5c2VpcmlzIiwiYSI6Im54T191WlEifQ.bhfFaaf7ABgWqhHYZmx8xw';
 
-var map = L.mapbox.map('map', 'ilyseiris.l4d0fmc3');
+//Set Up the Map
+var map = L.map('map', {zoomControl: false})
+.setView([37.766813,-122.41692], 13);
+
+//Set Up Basemap Tiles From Stamen
+L.tileLayer('http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.png', {
+attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+maxZoom: 17,
+minZoom: 13
+}).addTo(map);
+L.control.zoom({position: 'bottomleft'}).addTo(map);
 
 // The GeoJSON representing a point feature with a property of 'sounds'
 var geoJson = {
