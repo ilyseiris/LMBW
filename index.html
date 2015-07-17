@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Testing Soundcloud and LMBW</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
+<style>
+  body { margin:0; padding:0; }
+  #map { position:absolute; top:0; bottom:0; width:100%; }
+</style>
+</head>
+<body>
+<div id='map'></div>
+
+<script>
+L.mapbox.accessToken = 'pk.eyJ1IjoiaWx5c2VpcmlzIiwiYSI6Im54T191WlEifQ.bhfFaaf7ABgWqhHYZmx8xw';
+
+var map = L.mapbox.map('map', 'ilyseiris.l4d0fmc3');
+
+// The GeoJSON representing a point feature with a property of 'sounds'
+var geoJson = {
+    features: [{
+        type: 'Feature',
+        properties: {
+            title: 'Lines Made by Walking Test',
+            'marker-color': '#fa946e',
+            'marker-size': 'large',
+            'marker-symbol': 'circle',
+            url: 'http://linesmadebywalking.com',
+            sounds: '<iframe width="100%" height="300" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/213531960&amp;auto_play=true&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;visual=false"></iframe>'
+        },
+        geometry: {
+            type: 'Point',
+            coordinates: [-122.4457,37.773] 	
+        }
+    }]
+};
+var myLayer = L.mapbox.featureLayer().addTo(map);
+
+// Add the iframe in a custom popup using the custom feature properties
+myLayer.on('layeradd', function(e) {
+    var marker = e.layer,
+        feature = marker.feature;
+
+    // Create custom popup content
+    var popupContent =  '<a target="_blank" class="popup" href="' + 
+        feature.properties.url + '">' +
+        feature.properties.sounds + 
+        '<h2>' + feature.properties.title + '</h2>' + '</a>';
+
+    // http://leafletjs.com/reference.html#popup
+    marker.bindPopup(popupContent,{
+        closeButton: false,
+        minWidth: 320
+    });
+});
+
+// Add features to the map
+myLayer.setGeoJSON(geoJson);
+map.setView([37.766813,-122.41692], 13);
+</script>
+
+
+</body>
+</html>
