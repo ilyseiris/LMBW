@@ -29,7 +29,7 @@ minZoom: 13
 L.control.zoom({position: 'bottomleft'}).addTo(map);
 
 //Load External geoJSON (WTF is pointToLayer???)
-$.getJSON('./js/geoJSON.json',function(data){
+$.getJSON('geoJSON.json',function(data){
 //why is this a var?
 var geojsonLayer = L.geoJson(data.features, {
 onEachFeature: makeMarkers,
